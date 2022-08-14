@@ -64,4 +64,5 @@ public:
 
 	void ShowInputCalibrate(int device);
 	long GetControlValue(int device, int control);
+	afx_msg void OnStnClickedSpeedText();
 };

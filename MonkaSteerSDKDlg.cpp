@@ -1,27 +1,3 @@
-// This is a sample main file for testing the wheel in a way it could be
-// used in a game. It only works with the 9 first defines enabled
-// (__WHEELS/_JOYSTICK to _AIRBORNE).
-
-// The other defines show usages of the other methods of the Steering Wheel SDK
-
-// Usage: the accelerator pedal is mapped to the fictitious speed of the
-// car. If the pedal is not pressed at all, then the car is at a stop.
-// In that case there is a damper that makes the wheel hard to turn, there
-// is no spring effect. Surface effects are inexistent since at a stop you
-//  wouldn't feel anything.
-// As you start accelerating, the damper becomes loose and the spring
-// force kicks in. If you start surface effects by hitting some of the
-// buttons (see code below for button mapping), you will feel the surfaces
-// in your wheel as long as you have some speed. You can also emulate side
-// and front collisions by triggering certain buttons. Just like the
-// surface effects, the collisions' magnitude is dependent on speed.
-
-/*
-The Logitech Steering Wheel SDK, including all accompanying documentation,
-is protected by intellectual property laws. All rights
-not expressly granted by Logitech are reserved.
-*/
-
 #include "stdafx.h"
 #include "MonkaSteerSDK.h"
 #include "MonkaSteerSDKDlg.h"
@@ -65,6 +41,7 @@ BEGIN_MESSAGE_MAP(CMonkaSteerSDKDlg, CDialog)
 	ON_BN_CLICKED(IDC_CALIBRATE, &CMonkaSteerSDKDlg::OnBnClickedCalibrate)
 	ON_BN_CLICKED(IDC_CALIBRATE2, &CMonkaSteerSDKDlg::OnBnClickedCalibrate2)
 	ON_BN_CLICKED(IDC_SHUTDOWN, &CMonkaSteerSDKDlg::OnBnClickedShutdown)
+	ON_STN_CLICKED(IDC_SPEED_TEXT, &CMonkaSteerSDKDlg::OnStnClickedSpeedText)
 END_MESSAGE_MAP()
 
 // CMonkaSteerSDKDlg message handlers
@@ -73,14 +50,13 @@ BOOL CMonkaSteerSDKDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// Set the icon for this dialog.  The framework does this automatically
-	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, true);			// Set big icon
-	SetIcon(m_hIcon, false);		// Set small icon
+
+	SetIcon(m_hIcon, true);
+	SetIcon(m_hIcon, false);
 
 	SetTimer(1, 1000 / 30, NULL );
 
-	return true;  // return true  unless you set the focus to a control
+	return true;
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -936,4 +912,9 @@ long CMonkaSteerSDKDlg::GetControlValue(int device, int control)
 	}
 
 	return 0;
+}
+
+void CMonkaSteerSDKDlg::OnStnClickedSpeedText()
+{
+	// TODO: Add your control notification handler code here
 }
