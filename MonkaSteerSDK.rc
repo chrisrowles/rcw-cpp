@@ -70,61 +70,27 @@ IDR_MAINFRAME           ICON                    "res\\MonkaSteerSDK.ico"
 // Dialog
 //
 
-IDD_MONKASTEERSDK_DIALOG DIALOGEX 0, 0, 201, 228
+IDD_MONKASTEERSDK_DIALOG DIALOGEX 0, 0, 201, 156
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "MonkaSteer Configuration"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    LTEXT           "X Axis:",IDC_X_AXIS_TEXT,22,60,22,8
-    LTEXT           "Y Axis:",IDC_Y_AXIS_TEXT,22,71,22,8
-    LTEXT           "Z Axis:",IDC_Z_AXIS_TEXT,22,82,22,8
-    LTEXT           "Buttons:",IDC_STATIC,88,173,27,8
-    LTEXT           "X Rotation:",IDC_X_ROT_TEXT,22,97,36,8
-    LTEXT           "POV 0:",IDC_POV0_TEXT,104,90,24,8
-    LTEXT           "0",IDC_X_AXIS,67,62,31,8
-    LTEXT           "0",IDC_Y_AXIS,67,73,33,8
-    LTEXT           "0",IDC_Z_AXIS,67,84,33,8
-    LTEXT           "",IDC_BUTTONS,124,173,56,8
-    LTEXT           "0",IDC_X_ROT,67,99,33,8
-    LTEXT           "0",IDC_POV0,153,88,30,8
-    LTEXT           "Y Rotation:",IDC_Y_ROT_TEXT,22,108,36,8
-    LTEXT           "0",IDC_Y_ROT,67,110,33,8
-    LTEXT           "Z Rotation:",IDC_Z_ROT_TEXT,22,119,36,8
-    LTEXT           "0",IDC_Z_ROT,67,121,33,8
-    LTEXT           "Slider 0:",IDC_SLIDER0_TEXT,104,62,26,8
-    LTEXT           "0",IDC_SLIDER0,153,62,29,8
-    LTEXT           "Slider 1:",IDC_SLIDER1_TEXT,104,73,26,8
-    LTEXT           "0",IDC_SLIDER1,153,73,29,8
-    LTEXT           "POV 1:",IDC_POV1_TEXT,104,100,24,8
-    LTEXT           "0",IDC_POV1,153,99,29,8
-    LTEXT           "POV 2:",IDC_POV2_TEXT,104,111,24,8
-    LTEXT           "0",IDC_POV2,153,110,30,8
-    LTEXT           "POV 3:",IDC_POV3_TEXT,104,121,24,8
-    LTEXT           "0",IDC_POV3,153,121,29,8
+    LTEXT           "X Axis:",IDC_X_AXIS_TEXT,22,63,22,8
+    LTEXT           "Button:",IDC_STATIC,21,76,27,8
+    LTEXT           "0",IDC_X_AXIS,67,65,31,8
+    LTEXT           "",IDC_BUTTONS,67,77,56,8
     LTEXT           "",IDC_DEVICE,20,49,120,8
-    GROUPBOX        "Position",IDC_STATIC,14,38,171,150
-    LTEXT           "Speed (0 - 1000):",IDC_SPEED_TEXT,14,23,57,8
-    LTEXT           "0",IDC_SPEED,76,26,29,8
-    LTEXT           "Brake (0 - 1000):",IDC_BRAKE_TEXT3,107,26,58,8
-    LTEXT           "0",IDC_BRAKE,165,26,24,8
-    LTEXT           "Left Trigger:",IDC_Z_ROT_TEXT3,22,134,40,8
-    LTEXT           "Right Trigger:",IDC_RIGHT_TRIGGER_TEXT,104,136,45,8
-    LTEXT           "Thumb LX:",IDC_Z_ROT_TEXT5,22,144,40,8
-    LTEXT           "Thumb LY:",IDC_THUMB_LY_TEXT,104,146,45,8
-    LTEXT           "Thumb RX:",IDC_THUMB_RX_TEXT,22,154,40,8
-    LTEXT           "Thumb RY:",IDC_THUMB_RY_TEXT,104,156,45,8
-    LTEXT           "0",IDC_LEFT_TRIGGER,67,136,33,8
-    LTEXT           "0",IDC_THUMB_LX,67,146,33,8
-    LTEXT           "0",IDC_THUMB_RX,67,156,33,8
-    LTEXT           "0",IDC_RIGHT_TRIGGER,154,136,30,8
-    LTEXT           "0",IDC_THUMB_LY,154,146,25,8
-    LTEXT           "0",IDC_THUMB_RY,154,157,27,8
-    DEFPUSHBUTTON   "Init",IDC_INIT,18,199,50,16
-    DEFPUSHBUTTON   "Calibrate Axes",IDC_CALIBRATE,20,168,63,14
-    DEFPUSHBUTTON   "Shutdown",IDC_SHUTDOWN,72,199,50,16
-    GROUPBOX        "Device 0",IDC_STATIC,7,9,187,186
-    DEFPUSHBUTTON   "Exit",IDOK,125,199,50,16
+    GROUPBOX        "Position",IDC_STATIC,14,38,171,77
+    LTEXT           "Throttle (0 - 1000):",IDC_SPEED_TEXT,14,25,62,8
+    LTEXT           "0",IDC_SPEED,79,26,28,8
+    LTEXT           "Brake (0 - 1000):",IDC_BRAKE_TEXT3,110,26,58,8
+    LTEXT           "0",IDC_BRAKE,168,26,26,8
+    DEFPUSHBUTTON   "Init",IDC_INIT,18,127,50,16
+    DEFPUSHBUTTON   "Calibrate",IDC_CALIBRATE,20,92,63,14
+    DEFPUSHBUTTON   "Shutdown",IDC_SHUTDOWN,72,127,50,16
+    GROUPBOX        "Device",IDC_STATIC,7,9,187,113
+    DEFPUSHBUTTON   "Exit",IDOK,125,127,50,16
 END
 
 IDD_INPUTCALIBRATE_DIALOG DIALOGEX 0, 0, 221, 91
@@ -164,13 +130,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Logitech Inc."
-            VALUE "FileDescription", "Demo for Logitech Steering Wheel SDK"
+            VALUE "CompanyName", "CRWeb"
+            VALUE "FileDescription", "MonkaSteer driving companion."
             VALUE "FileVersion", "1.0.0.4"
             VALUE "InternalName", "MonkaSteerSDK"
-            VALUE "LegalCopyright", "(c) Logitech Inc.  All rights reserved."
+            VALUE "LegalCopyright", "(c) Chris Rowles.  All rights reserved."
             VALUE "OriginalFilename", "MonkaSteerSDK.exe"
-            VALUE "ProductName", "Logitech Steering Wheel SDK"
+            VALUE "ProductName", "MonkaSteer Driving Companion."
             VALUE "ProductVersion", "1.0.0.4"
         END
     END
@@ -194,7 +160,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 194
         TOPMARGIN, 7
-        BOTTOMMARGIN, 221
+        BOTTOMMARGIN, 149
     END
 
     IDD_INPUTCALIBRATE_DIALOG, DIALOG

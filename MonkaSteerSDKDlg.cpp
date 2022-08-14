@@ -208,113 +208,13 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				brakeParam_[index_] = 0;
 			}
 
-			LogiPlayLeds(index_, speedParam_[index_], 0.1f, 1.0f);
+			// LogiPlayLeds(index_, speedParam_[index_], 0.1f, 1.0f);
 
 			// Play spring force
-			LogiPlaySpringForce(index_,	0, int(70 * speedParam_[index_]), int(70 * speedParam_[index_]));
+			// LogiPlaySpringForce(index_,	0, int(70 * speedParam_[index_]), int(70 * speedParam_[index_]));
 
 			// Play Damper Force
-			LogiPlayDamperForce(index_, int(80 * (1 - speedParam_[index_])));
-
-			// Play Collisions
-			if (LogiButtonTriggered(index_, 0))
-			{
-				LogiPlaySideCollisionForce(index_, int(100 * speedParam_[index_]));
-			}
-
-			if (LogiButtonTriggered(index_, 1))
-			{
-				LogiPlaySideCollisionForce(index_, int(-100 * speedParam_[index_]));
-			}
-
-			if (LogiButtonTriggered(index_, 6))
-			{
-				LogiPlayFrontalCollisionForce(index_, int(100 * speedParam_[index_]));
-			}
-
-			// Play Bumpy road effect
-			if (LogiIsPlaying(index_, LOGI_FORCE_BUMPY_ROAD))
-			{
-				LogiPlayBumpyRoadEffect(index_,	int(100 * speedParam_[index_]));
-			}
-
-			if (LogiButtonTriggered(index_, 3))
-			{
-				if (LogiIsPlaying(index_, LOGI_FORCE_BUMPY_ROAD))
-				{
-					LogiStopBumpyRoadEffect(index_);
-				}
-				else
-				{
-					LogiPlayBumpyRoadEffect(index_,	int(60 * speedParam_[index_]));
-				}
-			}
-
-			// Play Dirt road effect
-			if (LogiIsPlaying(index_, LOGI_FORCE_DIRT_ROAD))
-			{
-				LogiPlayDirtRoadEffect(index_, int(40 * speedParam_[index_]));
-			}
-
-			if (LogiButtonTriggered(index_, 2))
-			{
-				if (LogiIsPlaying(index_, LOGI_FORCE_DIRT_ROAD))
-				{
-					LogiStopDirtRoadEffect(index_);
-				}
-				else
-				{
-					LogiPlayDirtRoadEffect(index_, int(40 * speedParam_[index_]));
-				}
-			}
-
-			// Play Slippery road effect
-			if (LogiButtonTriggered(index_, 4))
-			{
-				if (LogiIsPlaying(index_, LOGI_FORCE_SLIPPERY_ROAD))
-				{
-					LogiStopSlipperyRoadEffect(index_);
-				}
-				else
-				{
-					LogiPlaySlipperyRoadEffect(index_, 70);
-				}
-			}
-
-			// Play car in the air effect
-			if (LogiButtonTriggered(index_, 5))
-			{
-				if (LogiIsPlaying(index_, LOGI_FORCE_CAR_AIRBORNE))
-				{
-					LogiStopCarAirborne(index_);
-				}
-				else
-				{
-					LogiPlayCarAirborne(index_);
-				}
-			}
-
-			wsprintf(bumpyRoad_[index_], TEXT("off"));
-			wsprintf(dirtRoad_[index_], TEXT("off"));
-			wsprintf(slipperyRoad_[index_], TEXT("off"));
-			wsprintf(airborne_[index_], TEXT("off"));
-
-			if (LogiIsPlaying(index_, LOGI_FORCE_BUMPY_ROAD))
-			{
-				wsprintf(bumpyRoad_[index_], TEXT("on"));
-			}
-			if (LogiIsPlaying(index_, LOGI_FORCE_DIRT_ROAD))
-			{
-				wsprintf(dirtRoad_[index_], TEXT("on"));
-			}
-			if (LogiIsPlaying(index_, LOGI_FORCE_SLIPPERY_ROAD))
-			{
-				wsprintf(slipperyRoad_[index_], TEXT("on"));
-			}
-			if (LogiIsPlaying(index_, LOGI_FORCE_CAR_AIRBORNE))
-			{
-				wsprintf(airborne_[index_], TEXT("on"));
-			}
+			// LogiPlayDamperForce(index_, int(80 * (1 - speedParam_[index_])));
 
 			// Device 0
 			if (index_ == 0)
@@ -334,41 +234,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lX);
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS), sBuffer_);
 
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lY);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_AXIS), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lZ);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_AXIS), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lRx);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_ROT), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lRy);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_ROT), sBuffer_ );
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lRz);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_ROT), sBuffer_);
-
-				// Slider controls
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rglSlider[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER0), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->rglSlider[1]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER1), sBuffer_);
-
-				// Points of view
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rgdwPOV[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV0), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rgdwPOV[1]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV1), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->rgdwPOV[2]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->rgdwPOV[3]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV3), sBuffer_);
-
 				// Fill up text with which buttons are pressed
 				str_ = sBuffer_;
 				for(counter_ = 0; counter_ < 128; counter_++)
@@ -381,82 +246,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				*str_ = 0;   // Terminate the string
 
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUTTONS), sBuffer_);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DIRT_ROAD_PLAYING), dirtRoad_[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUMPY_ROAD_PLAYING), bumpyRoad_[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIPPERY_ROAD_PLAYING), slipperyRoad_[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_CAR_AIRBORNE_PLAYING), airborne_[0]);
-			}
-
-			// Device 1
-			if (index_ == 1)
-			{
-				// speed
-				wsprintf(sBuffer_, TEXT("%ld"), int(1000 * speedParam_[index_]));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SPEED2), sBuffer_);
-
-				// brake
-				wsprintf(sBuffer_, TEXT("%ld"), int(1000 * brakeParam_[index_]));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BRAKE2), sBuffer_);
-
-				// Device connected
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DEVICE2), deviceConnected_[index_]);
-
-				// Axes
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lX);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lY);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_AXIS2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lZ);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_AXIS2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lRx);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_ROT2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lRy);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_ROT2), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->lRz);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_ROT2), sBuffer_);
-
-				// Slider controls
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rglSlider[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER02), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rglSlider[1]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER12), sBuffer_);
-
-				// Points of view
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rgdwPOV[0]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV02), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->rgdwPOV[1]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV12), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->rgdwPOV[2]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV22), sBuffer_);
-
-				wsprintf(sBuffer_, TEXT("%ld"),	m_DIJoyState2Device[index_]->rgdwPOV[3]);
-				::SetWindowText(::GetDlgItem( m_hWnd, IDC_POV32), sBuffer_);
-
-				// Fill up text with which buttons are pressed
-				str_ = sBuffer_;
-				for(counter_ = 0; counter_ < 128; counter_++)
-				{
-					if (m_DIJoyState2Device[index_]->rgbButtons[counter_] & 0x80)
-					{
-						str_ += wsprintf(str_, TEXT("%02d "), counter_);
-					}
-				}
-				*str_ = 0;   // Terminate the string
-
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUTTONS2), sBuffer_);
-
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DIRT_ROAD_PLAYING2), dirtRoad_[index_]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUMPY_ROAD_PLAYING2), bumpyRoad_[index_]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIPPERY_ROAD_PLAYING2), slipperyRoad_[index_]);
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_CAR_AIRBORNE_PLAYING2), airborne_[index_]);
 			}
 
 		}
@@ -474,63 +263,9 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 
 				// Axes
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS ), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_AXIS ), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_AXIS ), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_ROT), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_ROT), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_ROT), _T("0"));
 
-				// Slider controls
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER0), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER1), _T("0"));
-
-				// Points of view
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV0), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV1), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV2), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV3), _T("-1"));
-
+				// Buttons
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUTTONS), _T(""));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DIRT_ROAD_PLAYING), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUMPY_ROAD_PLAYING), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIPPERY_ROAD_PLAYING), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_CAR_AIRBORNE_PLAYING), _T("off"));
-			}
-
-			if (index_ == 1)
-			{
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DEVICE2), _T("No device connected"));
-
-				// speed
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SPEED2), _T("0"));
-
-				// brake
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BRAKE2), _T("0"));
-
-				// Axes
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS2), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_AXIS2), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_AXIS2), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_ROT2), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Y_ROT2), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_Z_ROT2), _T("0"));
-
-				// Slider controls
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER02), _T("0"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIDER12), _T("0"));
-
-				// Points of view
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV02), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV12), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV22), _T("-1"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_POV32), _T("-1"));
-
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUTTONS2 ), _T(""));
-
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DIRT_ROAD_PLAYING2), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUMPY_ROAD_PLAYING2), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SLIPPERY_ROAD_PLAYING2), _T("off"));
-				::SetWindowText(::GetDlgItem(m_hWnd, IDC_CAR_AIRBORNE_PLAYING2), _T("off"));
 			}
 		}
 	}
