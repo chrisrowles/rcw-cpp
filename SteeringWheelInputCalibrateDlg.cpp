@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "SteeringWheelSDKDemo.h"
+#include "MonkaSteerSDK.h"
 #include "SteeringWheelInputCalibrateDlg.h"
 #include "afxdialogex.h"
 

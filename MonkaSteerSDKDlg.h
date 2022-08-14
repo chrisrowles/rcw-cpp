@@ -1,4 +1,4 @@
-// SteeringWheelSDKDemoDlg.h : header file
+// MonkaSteerSDKDlg.h : header file
 //
 
 #pragma once
@@ -12,15 +12,15 @@
 #include "map"
 
 
-// CSteeringWheelSDKDemoDlg dialog
-class CSteeringWheelSDKDemoDlg : public CDialog
+// CMonkaSteerSDKDlg dialog
+class CMonkaSteerSDKDlg : public CDialog
 {
 	// Construction
 public:
-	CSteeringWheelSDKDemoDlg(CWnd* pParent = NULL);	// standard constructor
+	CMonkaSteerSDKDlg(CWnd* pParent = NULL);	// standard constructor
 
 	// Dialog Data
-	enum { IDD = IDD_STEERINGWHEELSDKDEMO_DIALOG };
+	enum { IDD = IDD_MONKASTEERSDK_DIALOG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support

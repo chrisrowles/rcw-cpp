@@ -46,7 +46,7 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
     "LANGUAGE 9, 1\r\n"
     "#pragma code_page(1252)\r\n"
-    "#include ""res\\SteeringWheelSDKDemo.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""res\\MonkaSteerSDK.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
     "#include ""afxres.rc""     // Standard components\r\n"
     "#endif\r\n"
     "\0"
@@ -62,14 +62,14 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\SteeringWheelSDKDemo.ico"
+IDR_MAINFRAME           ICON                    "res\\MonkaSteerSDK.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-IDD_STEERINGWHEELSDKDEMO_DIALOG DIALOGEX 0, 0, 391, 508
+IDD_MONKASTEERSDK_DIALOG DIALOGEX 0, 0, 391, 508
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "MonkaSteer Configuration"
@@ -261,9 +261,9 @@ BEGIN
             VALUE "CompanyName", "Logitech Inc."
             VALUE "FileDescription", "Demo for Logitech Steering Wheel SDK"
             VALUE "FileVersion", "1.0.0.4"
-            VALUE "InternalName", "SteeringWheelSDKDemo"
+            VALUE "InternalName", "MonkaSteerSDK"
             VALUE "LegalCopyright", "(c) Logitech Inc.  All rights reserved."
-            VALUE "OriginalFilename", "SteeringWheelSDKDemo.exe"
+            VALUE "OriginalFilename", "MonkaSteerSDK.exe"
             VALUE "ProductName", "Logitech Steering Wheel SDK"
             VALUE "ProductVersion", "1.0.0.4"
         END
@@ -283,7 +283,7 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO
 BEGIN
-    IDD_STEERINGWHEELSDKDEMO_DIALOG, DIALOG
+    IDD_MONKASTEERSDK_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 384
@@ -319,7 +319,7 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE 9, 1
 #pragma code_page(1252)
-#include "res\SteeringWheelSDKDemo.rc2"  // non-Microsoft Visual C++ edited resources
+#include "res\MonkaSteerSDK.rc2"  // non-Microsoft Visual C++ edited resources
 #include "afxres.rc"     // Standard components
 #endif
 

@@ -1,4 +1,4 @@
-// SteeringWheelSDKDemo.h : main header file for the PROJECT_NAME application
+// MonkaSteerSDK.h : main header file for the PROJECT_NAME application
 //
 
 #pragma once
@@ -31,14 +31,14 @@ enum CALIBRATE_CONTROL {
 	Z_ROT		= 8,
 };
 
-// CSteeringWheelSDKDemoApp:
-// See SteeringWheelSDKDemo.cpp for the implementation of this class
+// CMonkaSteerSDKApp:
+// See MonkaSteerSDK.cpp for the implementation of this class
 //
 
-class CSteeringWheelSDKDemoApp : public CWinApp
+class CMonkaSteerSDKApp : public CWinApp
 {
 public:
-	CSteeringWheelSDKDemoApp();
+	CMonkaSteerSDKApp();
 
 	// Overrides
 public:
@@ -49,4 +49,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CSteeringWheelSDKDemoApp theApp;
+extern CMonkaSteerSDKApp theApp;

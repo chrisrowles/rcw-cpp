@@ -1,38 +1,38 @@
-// SteeringWheelSDKDemo.cpp : Defines the class behaviors for the application.
+// MonkaSteerSDK.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"
-#include "SteeringWheelSDKDemo.h"
-#include "SteeringWheelSDKDemoDlg.h"
+#include "MonkaSteerSDK.h"
+#include "MonkaSteerSDKDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-// CSteeringWheelSDKDemoApp
+// CMonkaSteerSDKApp
 
-BEGIN_MESSAGE_MAP(CSteeringWheelSDKDemoApp, CWinApp)
+BEGIN_MESSAGE_MAP(CMonkaSteerSDKApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CSteeringWheelSDKDemoApp construction
+// CMonkaSteerSDKApp construction
 
-CSteeringWheelSDKDemoApp::CSteeringWheelSDKDemoApp()
+CMonkaSteerSDKApp::CMonkaSteerSDKApp()
 {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
 
-// The one and only CSteeringWheelSDKDemoApp object
+// The one and only CMonkaSteerSDKApp object
 
-CSteeringWheelSDKDemoApp theApp;
+CMonkaSteerSDKApp theApp;
 
 
-// CSteeringWheelSDKDemoApp initialization
+// CMonkaSteerSDKApp initialization
 
-BOOL CSteeringWheelSDKDemoApp::InitInstance()
+BOOL CMonkaSteerSDKApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
@@ -58,7 +58,7 @@ BOOL CSteeringWheelSDKDemoApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CSteeringWheelSDKDemoDlg dlg;
+	CMonkaSteerSDKDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

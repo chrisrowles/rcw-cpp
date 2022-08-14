@@ -23,8 +23,8 @@ not expressly granted by Logitech are reserved.
 */
 
 #include "stdafx.h"
-#include "SteeringWheelSDKDemo.h"
-#include "SteeringWheelSDKDemoDlg.h"
+#include "MonkaSteerSDK.h"
+#include "MonkaSteerSDKDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -37,39 +37,39 @@ not expressly granted by Logitech are reserved.
 
 #define _DEMO // does things similar to how a game would feel based on pedal and button input
 
-// CSteeringWheelSDKDemoDlg dialog
+// CMonkaSteerSDKDlg dialog
 
-CSteeringWheelSDKDemoDlg::CSteeringWheelSDKDemoDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CSteeringWheelSDKDemoDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
+CMonkaSteerSDKDlg::CMonkaSteerSDKDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(CMonkaSteerSDKDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CSteeringWheelSDKDemoDlg::DoDataExchange(CDataExchange* pDX)
+void CMonkaSteerSDKDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CSteeringWheelSDKDemoDlg, CDialog)
+BEGIN_MESSAGE_MAP(CMonkaSteerSDKDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
-	ON_MESSAGE(CALIBRATE_MSG, &CSteeringWheelSDKDemoDlg::OnCalibrateInput)
-	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES0, &CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties0)
-	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES1, &CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties1)
-	ON_BN_CLICKED(IDC_BUTTON_DEFAULTS, &CSteeringWheelSDKDemoDlg::OnBnClickedButtonDefaults)
-	ON_BN_CLICKED(IDC_BUTTON_SET_PREFERRED, &CSteeringWheelSDKDemoDlg::OnBnClickedButtonSetPreferred)
-	ON_BN_KILLFOCUS(IDC_BUTTON_SET_PREFERRED, &CSteeringWheelSDKDemoDlg::OnBnKillfocusButtonSetPreferred)
-	ON_BN_CLICKED(IDC_INIT, &CSteeringWheelSDKDemoDlg::OnBnClickedInit)
-	ON_BN_CLICKED(IDC_CALIBRATE, &CSteeringWheelSDKDemoDlg::OnBnClickedCalibrate)
-	ON_BN_CLICKED(IDC_CALIBRATE2, &CSteeringWheelSDKDemoDlg::OnBnClickedCalibrate2)
-	ON_BN_CLICKED(IDC_SHUTDOWN, &CSteeringWheelSDKDemoDlg::OnBnClickedShutdown)
+	ON_MESSAGE(CALIBRATE_MSG, &CMonkaSteerSDKDlg::OnCalibrateInput)
+	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES0, &CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties0)
+	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES1, &CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties1)
+	ON_BN_CLICKED(IDC_BUTTON_DEFAULTS, &CMonkaSteerSDKDlg::OnBnClickedButtonDefaults)
+	ON_BN_CLICKED(IDC_BUTTON_SET_PREFERRED, &CMonkaSteerSDKDlg::OnBnClickedButtonSetPreferred)
+	ON_BN_KILLFOCUS(IDC_BUTTON_SET_PREFERRED, &CMonkaSteerSDKDlg::OnBnKillfocusButtonSetPreferred)
+	ON_BN_CLICKED(IDC_INIT, &CMonkaSteerSDKDlg::OnBnClickedInit)
+	ON_BN_CLICKED(IDC_CALIBRATE, &CMonkaSteerSDKDlg::OnBnClickedCalibrate)
+	ON_BN_CLICKED(IDC_CALIBRATE2, &CMonkaSteerSDKDlg::OnBnClickedCalibrate2)
+	ON_BN_CLICKED(IDC_SHUTDOWN, &CMonkaSteerSDKDlg::OnBnClickedShutdown)
 END_MESSAGE_MAP()
 
-// CSteeringWheelSDKDemoDlg message handlers
+// CMonkaSteerSDKDlg message handlers
 
-BOOL CSteeringWheelSDKDemoDlg::OnInitDialog()
+BOOL CMonkaSteerSDKDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -86,7 +86,7 @@ BOOL CSteeringWheelSDKDemoDlg::OnInitDialog()
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
-void CSteeringWheelSDKDemoDlg::OnPaint()
+void CMonkaSteerSDKDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -113,12 +113,12 @@ void CSteeringWheelSDKDemoDlg::OnPaint()
 
 // The system calls this function to obtain the cursor to display
 // while the user drags the minimized window.
-HCURSOR CSteeringWheelSDKDemoDlg::OnQueryDragIcon()
+HCURSOR CMonkaSteerSDKDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CSteeringWheelSDKDemoDlg::OnTimer(UINT_PTR nIDEvent)
+void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	UNREFERENCED_PARAMETER(nIDEvent);
 
@@ -560,13 +560,13 @@ void CSteeringWheelSDKDemoDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
-void CSteeringWheelSDKDemoDlg::OnDestroy()
+void CMonkaSteerSDKDlg::OnDestroy()
 {
 	KillTimer(1);
 	LogiSteeringShutdown();
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties0()
+void CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties0()
 {
 	LogiControllerPropertiesData propertiesData_;
 	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
@@ -589,7 +589,7 @@ void CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties0()
 	::SetWindowText(GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties1()
+void CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties1()
 {
 	LogiControllerPropertiesData propertiesData_;
 	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
@@ -613,7 +613,7 @@ void CSteeringWheelSDKDemoDlg::OnBnClickedButtonGetWheelProperties1()
 	::SetWindowText(GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
 }
 
-void CSteeringWheelSDKDemoDlg::FillGetPropertiesFields(CONST LogiControllerPropertiesData propertiesData, CONST int isGatedShifter)
+void CMonkaSteerSDKDlg::FillGetPropertiesFields(CONST LogiControllerPropertiesData propertiesData, CONST int isGatedShifter)
 {
 	// Fill out all the fields
 	TCHAR text_[MAX_PATH] = {'\0'};
@@ -653,7 +653,7 @@ void CSteeringWheelSDKDemoDlg::FillGetPropertiesFields(CONST LogiControllerPrope
 	((CButton*)GetDlgItem(IDC_CHECK_USER_ALLOWS_SETTINGS))->SetCheck(propertiesData.allowGameSettings);
 }
 
-void CSteeringWheelSDKDemoDlg::EmptyGetPropertiesFields()
+void CMonkaSteerSDKDlg::EmptyGetPropertiesFields()
 {
 	// Empty Get fields
 	TCHAR text_[MAX_PATH] = {'\0'};
@@ -672,7 +672,7 @@ void CSteeringWheelSDKDemoDlg::EmptyGetPropertiesFields()
 
 }
 
-HRESULT CSteeringWheelSDKDemoDlg::RetrieveFieldsForSet(LogiControllerPropertiesData &propertiesData)
+HRESULT CMonkaSteerSDKDlg::RetrieveFieldsForSet(LogiControllerPropertiesData &propertiesData)
 {
 	TCHAR text_[MAX_PATH] = {'\0'};
 
@@ -722,7 +722,7 @@ HRESULT CSteeringWheelSDKDemoDlg::RetrieveFieldsForSet(LogiControllerPropertiesD
 	return S_OK;
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedButtonDefaults()
+void CMonkaSteerSDKDlg::OnBnClickedButtonDefaults()
 {
 	LogiControllerPropertiesData propertiesData_;
 	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
@@ -743,7 +743,7 @@ void CSteeringWheelSDKDemoDlg::OnBnClickedButtonDefaults()
 	::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedButtonSetPreferred()
+void CMonkaSteerSDKDlg::OnBnClickedButtonSetPreferred()
 {
 	LogiControllerPropertiesData propertiesData_;
 	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
@@ -761,31 +761,31 @@ void CSteeringWheelSDKDemoDlg::OnBnClickedButtonSetPreferred()
 	}
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnKillfocusButtonSetPreferred()
+void CMonkaSteerSDKDlg::OnBnKillfocusButtonSetPreferred()
 {
 	::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
 }
 
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedInit()
+void CMonkaSteerSDKDlg::OnBnClickedInit()
 {
 	LogiSteeringInitializeWithWindow(true, m_hWnd);
 }
 
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedCalibrate()
+void CMonkaSteerSDKDlg::OnBnClickedCalibrate()
 {
 	ShowInputCalibrate(0);
 }
 
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedCalibrate2()
+void CMonkaSteerSDKDlg::OnBnClickedCalibrate2()
 {
 	ShowInputCalibrate(1);
 }
 
 //Creates a calibration dialog that will be responsible for capturing input configuration and returning it to this dialog.
-void CSteeringWheelSDKDemoDlg::ShowInputCalibrate(int device)
+void CMonkaSteerSDKDlg::ShowInputCalibrate(int device)
 {
 	m_isTimerActive = false;
 	m_calibrateDevice = device;
@@ -805,7 +805,7 @@ void CSteeringWheelSDKDemoDlg::ShowInputCalibrate(int device)
 }
 
 //Receive messages from the calibration dialog and store them in a temporary control map until the changes are accepted.
-LRESULT CSteeringWheelSDKDemoDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
+LRESULT CMonkaSteerSDKDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
 {
 	if (wParam == SAVE || wParam == CANCEL)
 	{
@@ -829,14 +829,14 @@ LRESULT CSteeringWheelSDKDemoDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void CSteeringWheelSDKDemoDlg::OnBnClickedShutdown()
+void CMonkaSteerSDKDlg::OnBnClickedShutdown()
 {
 	LogiSteeringShutdown();
 }
 
 //Get the current access value for the device at the mapped control.
 //Returns a default value if no control is mapped.
-long CSteeringWheelSDKDemoDlg::GetControlValue(int device, int control)
+long CMonkaSteerSDKDlg::GetControlValue(int device, int control)
 {
 	if (control == WHEEL)
 	{
