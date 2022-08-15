@@ -11,28 +11,18 @@
 
 #include "map"
 
-
-// CMonkaSteerSDKDlg dialog
 class CMonkaSteerSDKDlg : public CDialog
 {
-	// Construction
 public:
-	CMonkaSteerSDKDlg(CWnd* pParent = NULL);	// standard constructor
-
-	// Dialog Data
+	CMonkaSteerSDKDlg(CWnd* pParent = NULL);
 	enum { IDD = IDD_MONKASTEERSDK_DIALOG };
-
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 
 	// Implementation
 protected:
 	HICON m_hIcon;
-
-	void FillGetPropertiesFields(CONST LogiControllerPropertiesData propertiesData, CONST INT isGatedShifter);
-	void EmptyGetPropertiesFields();
-	HRESULT RetrieveFieldsForSet(LogiControllerPropertiesData &propertiesData);
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -51,18 +41,11 @@ public:
 	std::map<int, int> m_controlMap[2];
 	std::map<int, int> m_tempMap[2];
 
-	afx_msg void OnBnClickedButtonGetWheelProperties0();
-	afx_msg void OnBnClickedButtonGetWheelProperties1();
-	afx_msg void OnBnClickedButtonDefaults();
-	afx_msg void OnBnClickedButtonSetPreferred();
-	afx_msg void OnBnKillfocusButtonSetPreferred();
 	afx_msg void OnBnClickedInit();
 	afx_msg void OnBnClickedCalibrate();
-	afx_msg void OnBnClickedCalibrate2();
 	afx_msg void OnBnClickedShutdown();
 	afx_msg LRESULT OnCalibrateInput(WPARAM wParam, LPARAM lParam);
 
 	void ShowInputCalibrate(int device);
 	long GetControlValue(int device, int control);
-	afx_msg void OnStnClickedSpeedText();
 };

@@ -11,9 +11,7 @@
 #define TRACE LOGIWHEELTRACE
 #endif
 
-#define _DEMO // does things similar to how a game would feel based on pedal and button input
-
-// CMonkaSteerSDKDlg dialog
+#define _DEMO
 
 CMonkaSteerSDKDlg::CMonkaSteerSDKDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CMonkaSteerSDKDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
@@ -32,19 +30,10 @@ BEGIN_MESSAGE_MAP(CMonkaSteerSDKDlg, CDialog)
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
 	ON_MESSAGE(CALIBRATE_MSG, &CMonkaSteerSDKDlg::OnCalibrateInput)
-	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES0, &CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties0)
-	ON_BN_CLICKED(IDC_BUTTON_GET_WHEEL_PROPERTIES1, &CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties1)
-	ON_BN_CLICKED(IDC_BUTTON_DEFAULTS, &CMonkaSteerSDKDlg::OnBnClickedButtonDefaults)
-	ON_BN_CLICKED(IDC_BUTTON_SET_PREFERRED, &CMonkaSteerSDKDlg::OnBnClickedButtonSetPreferred)
-	ON_BN_KILLFOCUS(IDC_BUTTON_SET_PREFERRED, &CMonkaSteerSDKDlg::OnBnKillfocusButtonSetPreferred)
 	ON_BN_CLICKED(IDC_INIT, &CMonkaSteerSDKDlg::OnBnClickedInit)
 	ON_BN_CLICKED(IDC_CALIBRATE, &CMonkaSteerSDKDlg::OnBnClickedCalibrate)
-	ON_BN_CLICKED(IDC_CALIBRATE2, &CMonkaSteerSDKDlg::OnBnClickedCalibrate2)
 	ON_BN_CLICKED(IDC_SHUTDOWN, &CMonkaSteerSDKDlg::OnBnClickedShutdown)
-	ON_STN_CLICKED(IDC_SPEED_TEXT, &CMonkaSteerSDKDlg::OnStnClickedSpeedText)
 END_MESSAGE_MAP()
-
-// CMonkaSteerSDKDlg message handlers
 
 BOOL CMonkaSteerSDKDlg::OnInitDialog()
 {
@@ -59,18 +48,14 @@ BOOL CMonkaSteerSDKDlg::OnInitDialog()
 	return true;
 }
 
-// If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
 void CMonkaSteerSDKDlg::OnPaint()
 {
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // device context for painting
+		CPaintDC dc(this);
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-		// Center icon in client rectangle
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
@@ -78,7 +63,6 @@ void CMonkaSteerSDKDlg::OnPaint()
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// Draw the icon
 		dc.DrawIcon(x, y, m_hIcon);
 	}
 	else
@@ -87,8 +71,6 @@ void CMonkaSteerSDKDlg::OnPaint()
 	}
 }
 
-// The system calls this function to obtain the cursor to display
-// while the user drags the minimized window.
 HCURSOR CMonkaSteerSDKDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
@@ -104,22 +86,13 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 	TCHAR sBuffer_[128];
 	TCHAR* str_;
 	TCHAR deviceConnected_[128][LOGI_MAX_CONTROLLERS];
-	TCHAR dirtRoad_[128][LOGI_MAX_CONTROLLERS];
-	TCHAR bumpyRoad_[128][LOGI_MAX_CONTROLLERS];
-	TCHAR slipperyRoad_[128][LOGI_MAX_CONTROLLERS];
-	TCHAR airborne_[128][LOGI_MAX_CONTROLLERS];
 
 	int counter_ = 0;
 
-	// Update the input device every timer message.
-
-	//if the return value is false, means that the application has not been initialized yet and there is no hwnd available
 	if(!LogiUpdate()) return;
 
-	//if the timer is not active return immediately
 	if(!m_isTimerActive) return;
 
-	//// call this every frame in case a wheel gets plugged in.
 	LogiGenerateNonLinearValues(0, -40);
 	LogiGenerateNonLinearValues(1, 80);
 
@@ -127,8 +100,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		if (LogiIsConnected(index_))
 		{
-			// Find out if axes are separate or not. If combined, or
-			// if we fail, use Y axis for gas and brake.
 			wchar_t deviceName[128];
 			LogiGetFriendlyProductName(0, deviceName, 128);
 			wsprintf(deviceConnected_[index_], deviceName);
@@ -142,11 +113,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 
 				LogiGetCurrentControllerProperties(index_, propertiesData_);
 
-				
-
-				// calculate normalized speed parameter. In a real
-				// game the parameter could go from 0 at a stop to 1
-				// at a speed of about 50 to 80 miles/hour.
 				if (propertiesData_.combinePedals)
 				{
 					speedParam_[index_] = max(((-(float)(GetControlValue(index_, ACCELERATOR))) / 32767), 0);
@@ -160,14 +126,12 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 			}
 			else if (LogiIsDeviceConnected(index_, LOGI_DEVICE_TYPE_WHEEL) && LogiIsManufacturerConnected(index_, LOGI_MANUFACTURER_MICROSOFT))
 			{
-				// Microsoft wheel
 				wsprintf(deviceConnected_[index_], TEXT("Steering wheel, combined pedals"));
 				speedParam_[index_] = max(((-(float)(GetControlValue(index_, ACCELERATOR))) / 32767), 0);
 				brakeParam_[index_] = max((((float)(GetControlValue(index_, BRAKE))) / 32767), 0);
 			}
 			else if (LogiIsDeviceConnected(index_, LOGI_DEVICE_TYPE_WHEEL) && LogiIsManufacturerConnected(index_, LOGI_MANUFACTURER_OTHER) && m_DIJoyState2Device[index_] != NULL)
 			{
-				// Immersion wheel in combined mode
 				if (m_DIJoyState2Device[index_]->lRz == 32767
 					&& m_DIJoyState2Device[index_]->lY == 0
 					&& m_DIJoyState2Device[index_]->rglSlider[0] != 0
@@ -177,8 +141,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 					speedParam_[index_] = max(((-(float)(m_DIJoyState2Device[index_]->rglSlider[0])) / 32767), 0);
 					brakeParam_[index_] = max((((float)(m_DIJoyState2Device[index_]->rglSlider[0])) / 32767), 0);
 				}
-
-				// Immersion wheel in separate mode
 				else if (m_DIJoyState2Device[index_]->lRz == 32767
 					&& m_DIJoyState2Device[index_]->lY != 0
 					&& m_DIJoyState2Device[index_]->rglSlider[0] != 0
@@ -186,7 +148,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					wsprintf(deviceConnected_[index_], TEXT("Steering wheel, separate pedals"));
 					speedParam_[index_] = ((-(float)(m_DIJoyState2Device[index_]->lY)) / 65535) + float(0.5);
-					// TODO: brake
 				}
 			}
 			else if (LogiIsDeviceConnected(index_, LOGI_DEVICE_TYPE_JOYSTICK))
@@ -195,7 +156,6 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				brakeParam_[index_] = max((((float)(m_DIJoyState2Device[index_]->rglSlider[0])) / 32767), 0);
 			}
 
-			// Game pad
 			else if (LogiIsDeviceConnected(index_, LOGI_DEVICE_TYPE_GAMEPAD))
 			{
 				speedParam_[index_] = max((((float)(m_DIJoyState2Device[index_]->lY)) / 32767), 0);
@@ -208,33 +168,19 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 				brakeParam_[index_] = 0;
 			}
 
-			// LogiPlayLeds(index_, speedParam_[index_], 0.1f, 1.0f);
-
-			// Play spring force
-			// LogiPlaySpringForce(index_,	0, int(70 * speedParam_[index_]), int(70 * speedParam_[index_]));
-
-			// Play Damper Force
-			// LogiPlayDamperForce(index_, int(80 * (1 - speedParam_[index_])));
-
-			// Device 0
 			if (index_ == 0)
 			{
-				// speed
 				wsprintf(sBuffer_, TEXT("%ld"), int(1000 * speedParam_[index_]));
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SPEED), sBuffer_);
 
-				// brake
 				wsprintf(sBuffer_, TEXT("%ld"), int(1000 * brakeParam_[index_]));
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BRAKE), sBuffer_);
 
-				// Device connected
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DEVICE), deviceConnected_[index_]);
 
-				// Axes
 				wsprintf(sBuffer_, TEXT("%ld"), m_DIJoyState2Device[index_]->lX);
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS), sBuffer_);
 
-				// Fill up text with which buttons are pressed
 				str_ = sBuffer_;
 				for(counter_ = 0; counter_ < 128; counter_++)
 				{
@@ -254,17 +200,9 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 			if (index_ == 0)
 			{
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_DEVICE ), _T("No device connected"));
-
-				// speed
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_SPEED), _T("0"));
-
-				// brake
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BRAKE), _T("0"));
-
-				// Axes
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_X_AXIS ), _T("0"));
-
-				// Buttons
 				::SetWindowText(::GetDlgItem(m_hWnd, IDC_BUTTONS), _T(""));
 			}
 		}
@@ -277,225 +215,16 @@ void CMonkaSteerSDKDlg::OnDestroy()
 	LogiSteeringShutdown();
 }
 
-void CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties0()
-{
-	LogiControllerPropertiesData propertiesData_;
-	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
-
-	if (LogiIsConnected(0))
-	{
-		::SetWindowText(GetDlgItem(IDC_EDIT_WHEEL_PROPERTIES0)->m_hWnd, _T("SUCCEEDED"));
-
-		LogiGetCurrentControllerProperties(0, propertiesData_);
-
-		FillGetPropertiesFields(propertiesData_, LogiGetShifterMode(0));
-	}
-	else
-	{
-		::SetWindowText(GetDlgItem(IDC_EDIT_WHEEL_PROPERTIES0)->m_hWnd, _T("FAILED"));
-
-		EmptyGetPropertiesFields();
-	}
-
-	::SetWindowText(GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
-}
-
-void CMonkaSteerSDKDlg::OnBnClickedButtonGetWheelProperties1()
-{
-	LogiControllerPropertiesData propertiesData_;
-	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
-
-	/*LogitechSteeringWheel::Wheel* wheel = LogitechSteeringWheel::Wheel::GetInstance();*/
-	if (LogiIsConnected(1))
-	{
-		::SetWindowText(GetDlgItem(IDC_EDIT_WHEEL_PROPERTIES1)->m_hWnd, _T("SUCCEEDED"));
-
-		LogiGetCurrentControllerProperties(1, propertiesData_);
-
-		FillGetPropertiesFields(propertiesData_, LogiGetShifterMode(1));
-	}
-	else
-	{
-		::SetWindowText(GetDlgItem(IDC_EDIT_WHEEL_PROPERTIES1)->m_hWnd, _T("FAILED"));
-
-		EmptyGetPropertiesFields();
-	}
-
-	::SetWindowText(GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
-}
-
-void CMonkaSteerSDKDlg::FillGetPropertiesFields(CONST LogiControllerPropertiesData propertiesData, CONST int isGatedShifter)
-{
-	// Fill out all the fields
-	TCHAR text_[MAX_PATH] = {'\0'};
-
-	if (-1 == isGatedShifter)
-	{
-		::EnableWindow(GetDlgItem(IDC_STATIC_SHIFTER_GATED)->m_hWnd, false);
-		((CButton*)GetDlgItem(IDC_CHECK_SHIFTER_GATED))->SetCheck(false);
-	}
-	else
-	{
-		::EnableWindow(GetDlgItem(IDC_STATIC_SHIFTER_GATED)->m_hWnd, true);
-		((CButton*)GetDlgItem(IDC_CHECK_SHIFTER_GATED))->SetCheck(isGatedShifter);
-	}
-
-	((CButton*)GetDlgItem(IDC_CHECK_FORCE_ENABLED))->SetCheck(propertiesData.forceEnable);
-
-	_itot_s(propertiesData.overallGain, text_, 10);
-	::SetWindowText(GetDlgItem(IDC_EDIT_OVERALL_GAIN)->m_hWnd, text_);
-
-	_itot_s(propertiesData.springGain, text_, 10);
-	::SetWindowText(GetDlgItem(IDC_EDIT_SPRING_GAIN)->m_hWnd, text_);
-
-	_itot_s(propertiesData.damperGain, text_, 10);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DAMPER_GAIN)->m_hWnd, text_);
-
-	((CButton*)GetDlgItem(IDC_CHECKDEFAULT_SPRING_ENABLED))->SetCheck(propertiesData.defaultSpringEnabled);
-
-	_itot_s(propertiesData.defaultSpringGain, text_, 10);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DEFAULT_SPRING_GAIN)->m_hWnd, text_);
-
-	((CButton*)GetDlgItem(IDC_CHECK_PEDALS_COMBINED))->SetCheck(propertiesData.combinePedals);
-
-	_itot_s(propertiesData.wheelRange, text_, 10);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DEGREES_TURN)->m_hWnd, text_);
-
-	((CButton*)GetDlgItem(IDC_CHECK_USER_ALLOWS_SETTINGS))->SetCheck(propertiesData.allowGameSettings);
-}
-
-void CMonkaSteerSDKDlg::EmptyGetPropertiesFields()
-{
-	// Empty Get fields
-	TCHAR text_[MAX_PATH] = {'\0'};
-
-	::EnableWindow(GetDlgItem(IDC_STATIC_SHIFTER_GATED)->m_hWnd, false);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFTER_GATED))->SetCheck(false);
-	((CButton*)GetDlgItem(IDC_CHECK_FORCE_ENABLED))->SetCheck(false);
-	((CButton*)GetDlgItem(IDC_CHECKDEFAULT_SPRING_ENABLED))->SetCheck(false);
-	((CButton*)GetDlgItem(IDC_CHECK_PEDALS_COMBINED))->SetCheck(false);
-	((CButton*)GetDlgItem(IDC_CHECK_USER_ALLOWS_SETTINGS))->SetCheck(false);
-	::SetWindowText(GetDlgItem(IDC_EDIT_OVERALL_GAIN)->m_hWnd, text_);
-	::SetWindowText(GetDlgItem(IDC_EDIT_SPRING_GAIN)->m_hWnd, text_);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DAMPER_GAIN)->m_hWnd, text_);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DEFAULT_SPRING_GAIN)->m_hWnd, text_);
-	::SetWindowText(GetDlgItem(IDC_EDIT_DEGREES_TURN)->m_hWnd, text_);
-
-}
-
-HRESULT CMonkaSteerSDKDlg::RetrieveFieldsForSet(LogiControllerPropertiesData &propertiesData)
-{
-	TCHAR text_[MAX_PATH] = {'\0'};
-
-	int enableCheck_ = ((CButton*)GetDlgItem(IDC_CHECK_FORCE_ENABLED))->GetCheck();
-
-	::GetWindowText(GetDlgItem(IDC_EDIT_OVERALL_GAIN)->m_hWnd, text_, MAX_PATH);
-	int overallGain_ = _wtoi(text_);
-	if (overallGain_ < 0 || overallGain_ > 150 || 0 == _tcscmp(_T(""), text_))
-	{
-		::MessageBox(NULL, _T("Overall gain needs to be set between 0 and 150"), NULL, MB_OK);
-		return E_FAIL;
-	}
-
-	::GetWindowText(GetDlgItem(IDC_EDIT_SPRING_GAIN)->m_hWnd, text_, MAX_PATH);
-	int springGain_ = _wtoi(text_);
-	if (springGain_ < 0 || springGain_ > 150 || 0 == _tcscmp(_T(""), text_))
-	{
-		::MessageBox(NULL, _T("Spring gain needs to be set between 0 and 150"), NULL, MB_OK);
-		return E_FAIL;
-	}
-
-	::GetWindowText(GetDlgItem(IDC_EDIT_DAMPER_GAIN)->m_hWnd, text_, MAX_PATH);
-	int damperGain_ = _wtoi(text_);
-	if (damperGain_ < 0 || damperGain_ > 150 || 0 == _tcscmp(_T(""), text_))
-	{
-		::MessageBox(NULL, _T("Damper gain needs to be set between 0 and 150"), NULL, MB_OK);
-		return E_FAIL;
-	}
-
-	int pedalsAreCombinedCheck_ = ((CButton*)GetDlgItem(IDC_CHECK_PEDALS_COMBINED))->GetCheck();
-
-	::GetWindowText(GetDlgItem(IDC_EDIT_DEGREES_TURN)->m_hWnd, text_, MAX_PATH);
-	int degreesOfTurn_ = _wtoi(text_);
-	if (degreesOfTurn_ < 40 || degreesOfTurn_ > 900)
-	{
-		::MessageBox(NULL, _T("Degrees of turn needs to be set between 40 and 900"), NULL, MB_OK);
-		return E_FAIL;
-	}
-
-	propertiesData.forceEnable = (enableCheck_ == (int)true);
-	propertiesData.overallGain = overallGain_ ;
-	propertiesData.springGain = springGain_ ;
-	propertiesData.damperGain = damperGain_ ;
-	propertiesData.combinePedals = (pedalsAreCombinedCheck_ == (int)true);
-	propertiesData.wheelRange = degreesOfTurn_ ;
-
-	return S_OK;
-}
-
-void CMonkaSteerSDKDlg::OnBnClickedButtonDefaults()
-{
-	LogiControllerPropertiesData propertiesData_;
-	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
-
-	propertiesData_.allowGameSettings = true;
-	propertiesData_.combinePedals = false;
-	propertiesData_.damperGain = 100;
-	propertiesData_.defaultSpringEnabled = true;
-	propertiesData_.defaultSpringGain = 100;
-	propertiesData_.forceEnable = true;
-	propertiesData_.gameSettingsEnabled = false;
-	propertiesData_.overallGain = 100;
-	propertiesData_.springGain = 100;
-	propertiesData_.wheelRange = 200;
-
-	FillGetPropertiesFields(propertiesData_, -1);
-
-	::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
-}
-
-void CMonkaSteerSDKDlg::OnBnClickedButtonSetPreferred()
-{
-	LogiControllerPropertiesData propertiesData_;
-	ZeroMemory(&propertiesData_, sizeof(propertiesData_));
-
-	if (SUCCEEDED(RetrieveFieldsForSet(propertiesData_)))
-	{
-		/*LogitechSteeringWheel::Wheel* wheel = LogitechSteeringWheel::Wheel::GetInstance();*/
-		LogiSetPreferredControllerProperties(propertiesData_);
-
-		::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T("DONE"));
-	}
-	else
-	{
-		::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T("FAILED"));
-	}
-}
-
-void CMonkaSteerSDKDlg::OnBnKillfocusButtonSetPreferred()
-{
-	::SetWindowText( GetDlgItem(IDC_EDIT_SET_PREFERRED)->m_hWnd, _T(""));
-}
-
-
 void CMonkaSteerSDKDlg::OnBnClickedInit()
 {
 	LogiSteeringInitializeWithWindow(true, m_hWnd);
 }
-
 
 void CMonkaSteerSDKDlg::OnBnClickedCalibrate()
 {
 	ShowInputCalibrate(0);
 }
 
-
-void CMonkaSteerSDKDlg::OnBnClickedCalibrate2()
-{
-	ShowInputCalibrate(1);
-}
-
-//Creates a calibration dialog that will be responsible for capturing input configuration and returning it to this dialog.
 void CMonkaSteerSDKDlg::ShowInputCalibrate(int device)
 {
 	m_isTimerActive = false;
@@ -515,7 +244,6 @@ void CMonkaSteerSDKDlg::ShowInputCalibrate(int device)
 	}
 }
 
-//Receive messages from the calibration dialog and store them in a temporary control map until the changes are accepted.
 LRESULT CMonkaSteerSDKDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
 {
 	if (wParam == SAVE || wParam == CANCEL)
@@ -545,8 +273,6 @@ void CMonkaSteerSDKDlg::OnBnClickedShutdown()
 	LogiSteeringShutdown();
 }
 
-//Get the current access value for the device at the mapped control.
-//Returns a default value if no control is mapped.
 long CMonkaSteerSDKDlg::GetControlValue(int device, int control)
 {
 	if (control == WHEEL)
@@ -647,9 +373,4 @@ long CMonkaSteerSDKDlg::GetControlValue(int device, int control)
 	}
 
 	return 0;
-}
-
-void CMonkaSteerSDKDlg::OnStnClickedSpeedText()
-{
-	// TODO: Add your control notification handler code here
 }
