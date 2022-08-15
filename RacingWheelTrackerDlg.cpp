@@ -13,27 +13,30 @@
 
 #define _DEMO
 
-CRacingWheelTrackerDlg::CRacingWheelTrackerDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CRacingWheelTrackerDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
+// Class constructor
+CRacingWheelTrackerDlg::CRacingWheelTrackerDlg(CWnd* pParent /*=NULL*/) : CDialog(CRacingWheelTrackerDlg::IDD, pParent), m_isTimerActive(true)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
+
+// Supports the dialog data exchange (DDX) 
 void CRacingWheelTrackerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 }
 
+// MFC - begin the message map definition
+// This must be used in the class implementation.
 BEGIN_MESSAGE_MAP(CRacingWheelTrackerDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
-	ON_MESSAGE(CALIBRATE_MSG, &CRacingWheelTrackerDlg::OnCalibrateInput)
 	ON_BN_CLICKED(IDC_INIT, &CRacingWheelTrackerDlg::OnBnClickedInit)
-	ON_BN_CLICKED(IDC_CALIBRATE, &CRacingWheelTrackerDlg::OnBnClickedCalibrate)
 	ON_BN_CLICKED(IDC_SHUTDOWN, &CRacingWheelTrackerDlg::OnBnClickedShutdown)
 END_MESSAGE_MAP()
+
 
 BOOL CRacingWheelTrackerDlg::OnInitDialog()
 {
@@ -220,54 +223,6 @@ void CRacingWheelTrackerDlg::OnBnClickedInit()
 	LogiSteeringInitializeWithWindow(true, m_hWnd);
 }
 
-void CRacingWheelTrackerDlg::OnBnClickedCalibrate()
-{
-	ShowInputCalibrate(0);
-}
-
-void CRacingWheelTrackerDlg::ShowInputCalibrate(int device)
-{
-	m_isTimerActive = false;
-	m_calibrateDevice = device;
-	LogiSteeringShutdown();
-
-	m_pWheelInputCalibrateDlg = new CSteeringWheelInputCalibrateDlg(device, m_hWnd, FromHandle(m_hWnd));
-	if (m_pWheelInputCalibrateDlg != NULL)
-	{
-		if (!m_pWheelInputCalibrateDlg->Create(IDD_INPUTCALIBRATE_DIALOG, this))
-		{
-			AfxMessageBox(_T("Error creating Dialog"));
-		}
-
-		m_pWheelInputCalibrateDlg->ShowWindow(SW_SHOW);
-		EnableWindow(false);
-	}
-}
-
-LRESULT CRacingWheelTrackerDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
-{
-	if (wParam == SAVE || wParam == CANCEL)
-	{
-		EnableWindow(true);
-		LogiSteeringInitializeWithWindow(true, m_hWnd);
-		m_isTimerActive = true;
-	}
-	if (wParam == SAVE)
-	{
-		m_controlMap[m_calibrateDevice] = m_tempMap[m_calibrateDevice];
-		m_tempMap[m_calibrateDevice].clear();
-	}
-	if (wParam == CANCEL)
-	{
-		m_tempMap[m_calibrateDevice].clear();
-	}
-	if (wParam != SAVE && wParam != CANCEL)
-	{
-		m_tempMap[m_calibrateDevice][wParam] = lParam;
-	}
-	return 0;
-}
-
 void CRacingWheelTrackerDlg::OnBnClickedShutdown()
 {
 	LogiSteeringShutdown();
@@ -299,6 +254,7 @@ long CRacingWheelTrackerDlg::GetControlValue(int device, int control)
 			return m_DIJoyState2Device[device]->lX;
 		}
 	}
+
 	if (control == ACCELERATOR)
 	{
 		switch (m_controlMap[device][control])
@@ -323,6 +279,7 @@ long CRacingWheelTrackerDlg::GetControlValue(int device, int control)
 			return m_DIJoyState2Device[device]->lY;
 		}
 	}
+
 	if (control == BRAKE)
 	{
 		switch (m_controlMap[device][control])
@@ -347,6 +304,7 @@ long CRacingWheelTrackerDlg::GetControlValue(int device, int control)
 			return m_DIJoyState2Device[device]->lRz;
 		}
 	}
+
 	if (control == CLUTCH)
 	{
 		switch (m_controlMap[device][control])

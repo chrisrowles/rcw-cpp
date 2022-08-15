@@ -297,7 +297,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SteeringWheelInputCalibrateDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -308,7 +307,6 @@
     <ClCompile Include="RacingWheelTrackerDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SteeringWheelInputCalibrateDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="RacingWheelTracker.h" />

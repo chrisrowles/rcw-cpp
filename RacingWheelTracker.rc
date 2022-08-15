@@ -76,18 +76,17 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "Pepe Driving Companion"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    LTEXT           "X Axis:",IDC_X_AXIS_TEXT,22,63,22,8
-    LTEXT           "Button:",IDC_STATIC,21,76,27,8
-    LTEXT           "0",IDC_X_AXIS,67,65,31,8
-    LTEXT           "",IDC_BUTTONS,67,77,56,8
-    LTEXT           "",IDC_DEVICE,20,49,120,8
-    GROUPBOX        "Position",IDC_STATIC,14,38,171,77
-    LTEXT           "Throttle (0 - 1000):",IDC_SPEED_TEXT,14,25,62,8
-    LTEXT           "0",IDC_SPEED,79,26,28,8
-    LTEXT           "Brake (0 - 1000):",IDC_BRAKE_TEXT3,110,26,58,8
-    LTEXT           "0",IDC_BRAKE,168,26,26,8
+    LTEXT           "X Axis:",IDC_X_AXIS_TEXT,22,81,22,8
+    LTEXT           "Button:",IDC_STATIC,21,94,27,8
+    LTEXT           "0",IDC_X_AXIS,67,83,31,8
+    LTEXT           "",IDC_BUTTONS,67,95,56,8
+    LTEXT           "",IDC_DEVICE,14,25,120,8
+    GROUPBOX        "Position",IDC_STATIC,14,65,171,50
+    LTEXT           "Throttle (0 - 1000):",IDC_SPEED_TEXT,14,41,62,8
+    LTEXT           "0",IDC_SPEED,79,42,28,8
+    LTEXT           "Brake (0 - 1000):",IDC_BRAKE_TEXT3,110,42,58,8
+    LTEXT           "0",IDC_BRAKE,168,42,26,8
     DEFPUSHBUTTON   "Start",IDC_INIT,18,127,50,16
-    DEFPUSHBUTTON   "Calibrate",IDC_CALIBRATE,20,92,63,14
     DEFPUSHBUTTON   "Stop",IDC_SHUTDOWN,72,127,50,16
     GROUPBOX        "Device",IDC_STATIC,7,9,187,113
     DEFPUSHBUTTON   "Exit",IDOK,125,127,50,16
