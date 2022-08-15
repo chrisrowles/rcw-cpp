@@ -28,7 +28,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{012AB2C4-CCE5-485C-8DB1-72F23CC6E506}</ProjectGuid>
-    <RootNamespace>MonkaSteerSDK</RootNamespace>
+    <RootNamespace>RacingWheelTracker</RootNamespace>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -186,7 +186,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <AdditionalLibraryDirectories>..\..\LogitechSteeringWheelLib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"C:\Users\chris\workspace\LogitechSteeringWheelSDK_8.75.30\Lib\x64\LogitechSteeringWheelLib.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"C:\Users\chris\source\repos\RacingWheelTrackerCPP\Lib\x64\LogitechSteeringWheelLib.lib";%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -304,29 +304,29 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="MonkaSteerSDK.cpp" />
-    <ClCompile Include="MonkaSteerSDKDlg.cpp" />
+    <ClCompile Include="RacingWheelTracker.cpp" />
+    <ClCompile Include="RacingWheelTrackerDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SteeringWheelInputCalibrateDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="MonkaSteerSDK.h" />
-    <ClInclude Include="MonkaSteerSDKDlg.h" />
+    <ClInclude Include="RacingWheelTracker.h" />
+    <ClInclude Include="RacingWheelTrackerDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MonkaSteerSDK.ico" />
-    <None Include="res\MonkaSteerSDK.rc2" />
+    <None Include="res\RacingWheelTracker.ico" />
+    <None Include="res\RacingWheelTracker.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MonkaSteerSDK.rc" />
+    <ResourceCompile Include="RacingWheelTracker.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="MonkaSteerSDK.rc" />
+      <UserProperties RESOURCE_FILE="RacingWheelTracker.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

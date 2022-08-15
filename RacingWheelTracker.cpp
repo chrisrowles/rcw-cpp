@@ -1,23 +1,23 @@
 #include "stdafx.h"
-#include "MonkaSteerSDK.h"
-#include "MonkaSteerSDKDlg.h"
+#include "RacingWheelTracker.h"
+#include "RacingWheelTrackerDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-BEGIN_MESSAGE_MAP(CMonkaSteerSDKApp, CWinApp)
+BEGIN_MESSAGE_MAP(CRacingWheelTrackerApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
-CMonkaSteerSDKApp::CMonkaSteerSDKApp()
+CRacingWheelTrackerApp::CRacingWheelTrackerApp()
 {
 
 }
 
-CMonkaSteerSDKApp theApp;
+CRacingWheelTrackerApp theApp;
 
-BOOL CMonkaSteerSDKApp::InitInstance()
+BOOL CRacingWheelTrackerApp::InitInstance()
 {
 	INITCOMMONCONTROLSEX InitCtrls;
 	InitCtrls.dwSize = sizeof(InitCtrls);
@@ -32,7 +32,7 @@ BOOL CMonkaSteerSDKApp::InitInstance()
 
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CMonkaSteerSDKDlg dlg;
+	CRacingWheelTrackerDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 

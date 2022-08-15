@@ -1,8 +1,8 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by MonkaSteerSDK.rc
+// Used by RacingWheelTracker.rc
 //
-#define IDD_MONKASTEERSDK_DIALOG        102
+#define IDD_RACINGWHEELTRACKER_DIALOG        102
 #define IDR_ACCELERATOR1                103
 #define IDR_MAINFRAME                   128
 #define IDD_INPUTCALIBRATE_DIALOG       129

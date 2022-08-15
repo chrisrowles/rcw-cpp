@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonkaSteerSDK", "MonkaSteerSDK.vcxproj", "{012AB2C4-CCE5-485C-8DB1-72F23CC6E506}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RacingWheelTracker", "RacingWheelTracker.vcxproj", "{012AB2C4-CCE5-485C-8DB1-72F23CC6E506}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

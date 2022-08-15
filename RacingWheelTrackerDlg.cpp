@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MonkaSteerSDK.h"
-#include "MonkaSteerSDKDlg.h"
+#include "RacingWheelTracker.h"
+#include "RacingWheelTrackerDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -13,29 +13,29 @@
 
 #define _DEMO
 
-CMonkaSteerSDKDlg::CMonkaSteerSDKDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CMonkaSteerSDKDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
+CRacingWheelTrackerDlg::CRacingWheelTrackerDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(CRacingWheelTrackerDlg::IDD, pParent), m_isTimerActive(true), m_pWheelInputCalibrateDlg(NULL)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CMonkaSteerSDKDlg::DoDataExchange(CDataExchange* pDX)
+void CRacingWheelTrackerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CMonkaSteerSDKDlg, CDialog)
+BEGIN_MESSAGE_MAP(CRacingWheelTrackerDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
-	ON_MESSAGE(CALIBRATE_MSG, &CMonkaSteerSDKDlg::OnCalibrateInput)
-	ON_BN_CLICKED(IDC_INIT, &CMonkaSteerSDKDlg::OnBnClickedInit)
-	ON_BN_CLICKED(IDC_CALIBRATE, &CMonkaSteerSDKDlg::OnBnClickedCalibrate)
-	ON_BN_CLICKED(IDC_SHUTDOWN, &CMonkaSteerSDKDlg::OnBnClickedShutdown)
+	ON_MESSAGE(CALIBRATE_MSG, &CRacingWheelTrackerDlg::OnCalibrateInput)
+	ON_BN_CLICKED(IDC_INIT, &CRacingWheelTrackerDlg::OnBnClickedInit)
+	ON_BN_CLICKED(IDC_CALIBRATE, &CRacingWheelTrackerDlg::OnBnClickedCalibrate)
+	ON_BN_CLICKED(IDC_SHUTDOWN, &CRacingWheelTrackerDlg::OnBnClickedShutdown)
 END_MESSAGE_MAP()
 
-BOOL CMonkaSteerSDKDlg::OnInitDialog()
+BOOL CRacingWheelTrackerDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -48,7 +48,7 @@ BOOL CMonkaSteerSDKDlg::OnInitDialog()
 	return true;
 }
 
-void CMonkaSteerSDKDlg::OnPaint()
+void CRacingWheelTrackerDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -71,12 +71,12 @@ void CMonkaSteerSDKDlg::OnPaint()
 	}
 }
 
-HCURSOR CMonkaSteerSDKDlg::OnQueryDragIcon()
+HCURSOR CRacingWheelTrackerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
+void CRacingWheelTrackerDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	UNREFERENCED_PARAMETER(nIDEvent);
 
@@ -209,23 +209,23 @@ void CMonkaSteerSDKDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
-void CMonkaSteerSDKDlg::OnDestroy()
+void CRacingWheelTrackerDlg::OnDestroy()
 {
 	KillTimer(1);
 	LogiSteeringShutdown();
 }
 
-void CMonkaSteerSDKDlg::OnBnClickedInit()
+void CRacingWheelTrackerDlg::OnBnClickedInit()
 {
 	LogiSteeringInitializeWithWindow(true, m_hWnd);
 }
 
-void CMonkaSteerSDKDlg::OnBnClickedCalibrate()
+void CRacingWheelTrackerDlg::OnBnClickedCalibrate()
 {
 	ShowInputCalibrate(0);
 }
 
-void CMonkaSteerSDKDlg::ShowInputCalibrate(int device)
+void CRacingWheelTrackerDlg::ShowInputCalibrate(int device)
 {
 	m_isTimerActive = false;
 	m_calibrateDevice = device;
@@ -244,7 +244,7 @@ void CMonkaSteerSDKDlg::ShowInputCalibrate(int device)
 	}
 }
 
-LRESULT CMonkaSteerSDKDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
+LRESULT CRacingWheelTrackerDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
 {
 	if (wParam == SAVE || wParam == CANCEL)
 	{
@@ -268,12 +268,12 @@ LRESULT CMonkaSteerSDKDlg::OnCalibrateInput(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void CMonkaSteerSDKDlg::OnBnClickedShutdown()
+void CRacingWheelTrackerDlg::OnBnClickedShutdown()
 {
 	LogiSteeringShutdown();
 }
 
-long CMonkaSteerSDKDlg::GetControlValue(int device, int control)
+long CRacingWheelTrackerDlg::GetControlValue(int device, int control)
 {
 	if (control == WHEEL)
 	{

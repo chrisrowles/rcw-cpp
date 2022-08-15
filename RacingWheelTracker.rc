@@ -46,7 +46,7 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
     "LANGUAGE 9, 1\r\n"
     "#pragma code_page(1252)\r\n"
-    "#include ""res\\MonkaSteerSDK.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""res\\RacingWheelTracker.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
     "#include ""afxres.rc""     // Standard components\r\n"
     "#endif\r\n"
     "\0"
@@ -62,7 +62,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\MonkaSteerSDK.ico"
+IDR_MAINFRAME           ICON                    "res\\RacingWheelTracker.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -70,10 +70,10 @@ IDR_MAINFRAME           ICON                    "res\\MonkaSteerSDK.ico"
 // Dialog
 //
 
-IDD_MONKASTEERSDK_DIALOG DIALOGEX 0, 0, 201, 156
+IDD_RACINGWHEELTRACKER_DIALOG DIALOGEX 0, 0, 201, 156
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "MonkaSteer Configuration"
+CAPTION "Pepe Driving Companion"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "X Axis:",IDC_X_AXIS_TEXT,22,63,22,8
@@ -86,9 +86,9 @@ BEGIN
     LTEXT           "0",IDC_SPEED,79,26,28,8
     LTEXT           "Brake (0 - 1000):",IDC_BRAKE_TEXT3,110,26,58,8
     LTEXT           "0",IDC_BRAKE,168,26,26,8
-    DEFPUSHBUTTON   "Init",IDC_INIT,18,127,50,16
+    DEFPUSHBUTTON   "Start",IDC_INIT,18,127,50,16
     DEFPUSHBUTTON   "Calibrate",IDC_CALIBRATE,20,92,63,14
-    DEFPUSHBUTTON   "Shutdown",IDC_SHUTDOWN,72,127,50,16
+    DEFPUSHBUTTON   "Stop",IDC_SHUTDOWN,72,127,50,16
     GROUPBOX        "Device",IDC_STATIC,7,9,187,113
     DEFPUSHBUTTON   "Exit",IDOK,125,127,50,16
 END
@@ -131,12 +131,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "CRWeb"
-            VALUE "FileDescription", "MonkaSteer driving companion."
+            VALUE "FileDescription", "Pepe Driving companion."
             VALUE "FileVersion", "1.0.0.4"
-            VALUE "InternalName", "MonkaSteerSDK"
+            VALUE "InternalName", "RacingWheelTracker"
             VALUE "LegalCopyright", "(c) Chris Rowles.  All rights reserved."
-            VALUE "OriginalFilename", "MonkaSteerSDK.exe"
-            VALUE "ProductName", "MonkaSteer Driving Companion."
+            VALUE "OriginalFilename", "RacingWheelTracker.exe"
+            VALUE "ProductName", "Pepe Driving Companion."
             VALUE "ProductVersion", "1.0.0.4"
         END
     END
@@ -155,7 +155,7 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO
 BEGIN
-    IDD_MONKASTEERSDK_DIALOG, DIALOG
+    IDD_RACINGWHEELTRACKER_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 194
@@ -179,7 +179,7 @@ END
 // AFX_DIALOG_LAYOUT
 //
 
-IDD_MONKASTEERSDK_DIALOG AFX_DIALOG_LAYOUT
+IDD_RACINGWHEELTRACKER_DIALOG AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
@@ -202,7 +202,7 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE 9, 1
 #pragma code_page(1252)
-#include "res\MonkaSteerSDK.rc2"  // non-Microsoft Visual C++ edited resources
+#include "res\RacingWheelTracker.rc2"  // non-Microsoft Visual C++ edited resources
 #include "afxres.rc"     // Standard components
 #endif
 

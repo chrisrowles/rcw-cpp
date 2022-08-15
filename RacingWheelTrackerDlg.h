@@ -1,4 +1,4 @@
-// MonkaSteerSDKDlg.h : header file
+// RacingWheelTrackerDlg.h : header file
 //
 
 #pragma once
@@ -11,11 +11,11 @@
 
 #include "map"
 
-class CMonkaSteerSDKDlg : public CDialog
+class CRacingWheelTrackerDlg : public CDialog
 {
 public:
-	CMonkaSteerSDKDlg(CWnd* pParent = NULL);
-	enum { IDD = IDD_MONKASTEERSDK_DIALOG };
+	CRacingWheelTrackerDlg(CWnd* pParent = NULL);
+	enum { IDD = IDD_RACINGWHEELTRACKER_DIALOG };
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 

@@ -1,4 +1,4 @@
-// MonkaSteerSDK.h : main header file for the PROJECT_NAME application
+// RacingWheelTracker.h : main header file for the PROJECT_NAME application
 //
 
 #pragma once
@@ -31,14 +31,14 @@ enum CALIBRATE_CONTROL {
 	Z_ROT		= 8,
 };
 
-// CMonkaSteerSDKApp:
-// See MonkaSteerSDK.cpp for the implementation of this class
+// CRacingWheelTrackerApp:
+// See RacingWheelTracker.cpp for the implementation of this class
 //
 
-class CMonkaSteerSDKApp : public CWinApp
+class CRacingWheelTrackerApp : public CWinApp
 {
 public:
-	CMonkaSteerSDKApp();
+	CRacingWheelTrackerApp();
 
 	// Overrides
 public:
@@ -49,4 +49,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CMonkaSteerSDKApp theApp;
+extern CRacingWheelTrackerApp theApp;
